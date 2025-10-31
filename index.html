@@ -268,7 +268,7 @@
         }
       }
       // Default to next December 8 at 12:00 local time if nothing set
-      const def = nextDec8Noon();
+      const def = setInitialDate();
       setTargetIso(def.toISOString());
       els.input.value = toLocalInputValue(def);
     }
@@ -293,12 +293,20 @@
         els.status.textContent = "No date set — pick your next lesbian rendezvous!";
       }
     }
-    function nextDec8Noon(){
+    function setInitialDate(){
       const now = new Date();
+      const month = 11; // December (0-indexed)
+      const day = 3;
+      const hour = 17;
+      const minute = 50
+      
       let year = now.getFullYear();
-      let candidate = new Date(year, 11, 8, 12, 0, 0, 0);
+      let candidate = new Date(year, month, day, hour, minute, 0, 0);
+      
+      // If December 8 has already passed this year, use next year
       if (now.getTime() > candidate.getTime()){
-        candidate = new Date(year + 1, 11, 8, 12, 0, 0, 0);
+        year = year + 1;
+        candidate = new Date(year, month, day, hour, minute, 0, 0);
       }
       return candidate;
     }
