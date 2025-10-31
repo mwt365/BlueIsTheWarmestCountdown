@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BLUE IS THE WARMEST COUNTDOWN 💙</title>
+  <style>
+    :root {
+      --bg1: #002b8a;
+      --bg2: #0058d4;
+      --accent: #00d4ff;
+      --neon: #8affff;
+      --shadow: rgba(0,0,0,0.4);
+      --star: #ffffff;
+    }
+    html,body { height:100%; margin:0; font-family:"Comic Sans MS","Trebuchet MS","Arial",sans-serif; }
+    body {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1), transparent 15%),
+    repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 18px),
+    linear-gradient(135deg, var(--bg1), var(--bg2));
+  color:#eee;
+  padding:20px;
+  text-align:center;
+  display:block;              /* 🧩 Changed from flex to block */
+  min-height:100vh;           /* 🧩 Ensures full screen height */
+  box-sizing:border-box;      /* 🧩 Keeps padding within height */
+  overflow-x:hidden;          /* 🧩 Prevents horizontal scroll on small screens */
+}
+
+    .card {
+      width:100%;
+      max-width:880px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.05));
+      border: 6px dashed var(--accent);
+      box-shadow: 0 16px 36px var(--shadow);
+      padding:24px;
+      border-radius:24px;
+      position:relative;
+      overflow:hidden;
+    }
+    .card::after {
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        radial-gradient(circle at 15% 25%, rgba(255,255,255,0.14), transparent 5%),
+        radial-gradient(circle at 75% 80%, rgba(255,255,255,0.10), transparent 4%),
+        radial-gradient(circle at 50% 40%, rgba(255,255,255,0.07), transparent 3%);
+      mix-blend-mode:screen;
+      animation: shimmer 7s linear infinite;
+      opacity:0.85;
+    }
+    @keyframes shimmer {
+      0% { transform:translateX(-20%) translateY(-10%) rotate(0deg); }
+      50% { transform:translateX(20%) translateY(10%) rotate(3deg); }
+      100% { transform:translateX(-20%) translateY(-10%) rotate(0deg); }
+    }
+    header {
+      margin-bottom:18px;
+    }
+    .marquee-wrap { overflow:hidden; width:100%; }
+    .marq {
+      display:inline-block;
+      padding-left:100%;
+      font-size:28px;
+      letter-spacing:2px;
+      white-space:nowrap;
+      animation: scroll 12s linear infinite;
+      color: var(--neon);
+      text-shadow: 0 0 12px #fff, 0 0 24px var(--accent);
+    }
+    @keyframes scroll {
+      0% { transform:translateX(0); }
+      100% { transform:translateX(-100%); }
+    }
+    @media (max-width: 480px) {
+      .marquee-wrap { overflow: visible; }
+      .marq {
+        padding-left: 0; /* ensure text starts on-screen */
+        animation: none; /* show static text on mobile */
+        white-space: normal; /* allow wrapping on very small screens */
+        display: block;
+        font-size: 20px; /* fit more text */
+        line-height: 1.2;
+      }
+    }
+    .controls {
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-bottom:16px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+    label { font-size:13px; }
+    input[type="datetime-local"] {
+      padding:8px 10px;
+      border-radius:8px;
+      border:2px solid rgba(255,255,255,0.4);
+      font-size:14px;
+      background:rgba(255,255,255,0.9);
+      color:#000;
+    }
+    button {
+      padding:8px 12px;
+      border-radius:10px;
+      border:3px double rgba(255,255,255,0.6);
+      background:linear-gradient(180deg, #ffffff 0%, #00d4ff 100%);
+      cursor:pointer;
+      font-weight:700;
+      text-transform:uppercase;
+    }
+    .countdown {
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      align-items:center;
+      margin:20px 0 14px 0;
+      flex-wrap:wrap;
+    }
+    .unit {
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.75));
+      border-radius:12px;
+      padding:14px 16px;
+      min-width:110px;
+      text-align:center;
+      box-shadow:0 8px 16px rgba(0,0,0,0.2), inset 0 -4px 8px rgba(0,0,0,0.1);
+      border:4px solid rgba(255,255,255,0.4);
+      transform: rotate(-1deg);
+      transition: transform .12s ease;
+      color:#050d30;
+    }
+    .unit:active { transform:rotate(0deg) scale(0.98); }
+    .number {
+      font-size:42px;
+      font-weight:900;
+      letter-spacing:2px;
+      color:#050d30;
+      text-shadow: 0 2px 0 #fff, 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .label {
+      font-size:12px;
+      opacity:0.85;
+      margin-top:6px;
+      font-weight:700;
+      color:#222;
+    }
+    .star-row {
+      margin-top:18px;
+      font-size:26px;
+      color: var(--star);
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+      animation: twinkle 3s infinite;
+    }
+    @keyframes twinkle {
+      0%,100% {opacity:1;}
+      50% {opacity:0.6;}
+    }
+    .meta {
+      margin-top:14px;
+      font-size:12px;
+      opacity:0.9;
+      color:#ddd;
+    }
+    a.reset {
+      color:#fff;
+      font-weight:800;
+      text-decoration:underline dotted;
+      margin-left:8px;
+    }
+    .sr { position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
+    /* Responsive image */
+    #mainImage {
+      display:block;
+      max-width:100%;
+      height:auto;
+      margin:16px auto;
+      object-fit:contain;
+    }
+    html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;  /* ✅ Prevents horizontal cutoff or scroll */
+}
+
+.card {
+  box-sizing: border-box;     /* ✅ Ensures borders/padding don’t exceed width */
+  margin: 0 auto;             /* ✅ Keeps card centered */
+}
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="main-heading">
+    <header>
+      <div class="marquee-wrap" aria-hidden="true">
+        <div class="marq">BLUE IS THE WARMEST COUNTDOWN 💙🔥 • U-HAUL READY • LINUS & CLAUDE VIBES • LESBIAN JOKES APLENTY</div>
+      </div>
+    </header>
+
+    <section class="controls" aria-label="Countdown controls">
+      <label for="target">
+        <span style="font-weight:800;">Countdown of Intense Longing:</span>
+        <input id="target" type="datetime-local" aria-label="Set the next date/time when we’ll see each other" />
+      </label>
+      <button id="setBtn">SAVE DATE</button>
+      <button id="nowBtn">U-HAUL NOW!</button>
+    </section>
+    <section>
+      <span style="font-weight: 300">Campy lesbian parody: flannel, existential feelings, and a suspiciously ready U-Haul.</span>
+    </section>
+    <img id="mainImage" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWxtdmkzN2FyNnBzc25yMnpxbWNjZXo5bnNzdHUwaXpsYzFnY2d6dCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/s4KyeCGQ7lqwg/giphy.gif" 
+    data-original="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWxtdmkzN2FyNnBzc25yMnpxbWNjZXo5bnNzdHUwaXpsYzFnY2d6dCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/oCR2Nkr3LCUoM/giphy.gif">
+
+    <section class="countdown" aria-live="polite" aria-atomic="true" id="countdown">
+      <div class="unit" id="days">
+        <div class="number" id="daysNum">--</div>
+        <div class="label">DAYS</div>
+      </div>
+      <div class="unit" id="hours">
+        <div class="number" id="hoursNum">--</div>
+        <div class="label">HOURS</div>
+      </div>
+    </section>
+    <section>
+      <span style="font-weight: 300">Hint: click on Micheal Cera</span>
+    </section>
+
+    <div class="star-row" aria-hidden="true">
+      ✨ ✰ ☆ ✠ ✦ ✨ 💫 ✰ ☆ ✠ ✦ ✨
+    </div>
+
+    <div class="meta">
+      <span id="status">No date set — pick your next lesbian rendezvous!</span>
+      <a href="#" class="reset" id="copyBtn">Copy share link</a>
+      <div style="margin-top:6px; font-size: 10px; opacity:0.7;">
+        P.S. Lesbian jokes ahead: If this countdown ends and you're not moved into the same zip code… did you even love? 💁‍♀️💁‍♀️
+      </div>
+    </div>
+
+    <div class="sr" id="sr-updates" aria-live="polite"></div>
+  </main>
+
+  <script>
+    const els = {
+      input: document.getElementById('target'),
+      setBtn: document.getElementById('setBtn'),
+      nowBtn: document.getElementById('nowBtn'),
+      daysNum: document.getElementById('daysNum'),
+      hoursNum: document.getElementById('hoursNum'),
+      status: document.getElementById('status'),
+      copyBtn: document.getElementById('copyBtn'),
+      sr: document.getElementById('sr-updates'),
+      card: document.querySelector('.card')
+    };
+    const STORAGE_KEY = 'lesbian_parody_countdown_target_v1';
+
+    function loadInitial(){
+      const url = new URL(location.href);
+      const q = url.searchParams.get('t');
+      if (q){
+        const d = new Date(q);
+        if (!isNaN(d)) {
+          setTargetIso(d.toISOString());
+          els.input.value = toLocalInputValue(d);
+          return;
+        }
+      }
+      // Default to next December 8 at 12:00 local time if nothing set
+      const def = nextDec8Noon();
+      setTargetIso(def.toISOString());
+      els.input.value = toLocalInputValue(def);
+    }
+    function toLocalInputValue(date){
+      const pad = n=>String(n).padStart(2,'0');
+      const y = date.getFullYear();
+      const m = pad(date.getMonth()+1);
+      const d = pad(date.getDate());
+      const hh = pad(date.getHours());
+      const mm = pad(date.getMinutes());
+      return `${y}-${m}-${d}T${hh}:${mm}`;
+    }
+    function setTargetIso(iso){
+      localStorage.setItem(STORAGE_KEY, iso);
+      updateStatus();
+    }
+    function updateStatus(){
+      const target = getTarget();
+      if (target){
+        els.status.textContent = `Next hang-out: ${target.toLocaleString()}`;
+      } else {
+        els.status.textContent = "No date set — pick your next lesbian rendezvous!";
+      }
+    }
+    function nextDec8Noon(){
+      const now = new Date();
+      let year = now.getFullYear();
+      let candidate = new Date(year, 11, 8, 12, 0, 0, 0);
+      if (now.getTime() > candidate.getTime()){
+        candidate = new Date(year + 1, 11, 8, 12, 0, 0, 0);
+      }
+      return candidate;
+    }
+    function getTarget(){
+      const s = localStorage.getItem(STORAGE_KEY);
+      if (!s) return null;
+      const d = new Date(s);
+      if (isNaN(d)) return null;
+      return d;
+    }
+    function z(n, digits=2){
+      return String(Math.floor(n)).padStart(digits,'0');
+    }
+    function updateCountdown(){
+      const target = getTarget();
+      if (!target){
+        els.daysNum.textContent = '--';
+        els.hoursNum.textContent = '--';
+        return;
+      }
+      const now = new Date();
+      let diff = target.getTime() - now.getTime();
+      if (diff <= 0){
+        els.daysNum.textContent = '00';
+        els.hoursNum.textContent = '00';
+        els.status.textContent = "IT’S TIME TO U-HAUL 💙💙";
+        els.sr.textContent = "Countdown done. Time to move in together!";
+        els.card.style.transform = `scale(${1 + 0.03 * Math.abs(Math.sin(now.getTime()/180))})`;
+        return;
+      }
+      const msInHour = 60 * 60 * 1000;
+      const msInDay = 24 * msInHour;
+
+      const days = Math.floor(diff / msInDay);
+      diff -= days * msInDay;
+      const hours = Math.floor(diff / msInHour);
+
+      els.daysNum.textContent = z(days,2);
+      els.hoursNum.textContent = z(hours,2);
+
+      els.status.textContent = `Next hang-out: ${target.toLocaleString()}`;
+      els.sr.textContent = `${days} days, ${hours} hours remaining.`;
+    }
+
+    els.setBtn.addEventListener('click', ()=>{
+      const v = els.input.value;
+      if (!v){ alert('Pick a date/time first!'); return; }
+      const d = new Date(v);
+      if (isNaN(d)){ alert('Invalid date'); return; }
+      setTargetIso(d.toISOString());
+      updateCountdown();
+      alert('Date saved — lesbian shuttle departure scheduled.');
+    });
+
+    els.nowBtn.addEventListener('click', ()=>{
+      const d = new Date();
+      d.setMinutes(d.getMinutes()+1);
+      els.input.value = toLocalInputValue(d);
+      setTargetIso(d.toISOString());
+      updateCountdown();
+    });
+
+    els.copyBtn.addEventListener('click', e=>{
+      e.preventDefault();
+      const target = getTarget();
+      if (!target){ alert('No target set — you need a date first!'); return; }
+      const iso = encodeURIComponent(target.toISOString());
+      const url = `${location.origin}${location.pathname}?t=${iso}`;
+      navigator.clipboard?.writeText(url).then(
+        ()=> alert('Share link copied to clipboard!'),
+        ()=> alert('Could not auto-copy; here’s the link:\\n' + url)
+      );
+    });
+
+    loadInitial();
+    updateCountdown();
+    setInterval(updateCountdown, 250);
+    els.input.addEventListener('change', ()=>{
+      const v = els.input.value;
+      if (!v) return;
+      const d = new Date(v);
+      if (isNaN(d)) return;
+      els.status.textContent = `Preview: ${d.toLocaleString()} (click SAVE to persist)`;
+    });
+    // Swap placeholder image to original on click
+    (function(){
+      const img = document.getElementById('mainImage');
+      if (!img) return;
+      img.style.cursor = 'pointer';
+      img.addEventListener('click', ()=>{
+        const original = img.getAttribute('data-original');
+        if (original && img.src !== original){
+          img.src = original;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
